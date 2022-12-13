@@ -1,6 +1,6 @@
 import {Model, DataType, Sequelize, DataTypes, ModelStatic} from 'sequelize'
 import IRole, {ICreateRole} from '../../core/entities/Role';
-import User from './user.model';
+import User from './coach.model';
 
 export const ROLE_TABLE = 'roles'
 

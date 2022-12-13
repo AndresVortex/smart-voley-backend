@@ -1,17 +1,16 @@
 import { Sequelize } from 'sequelize';
-import { USER_TABLET, User, userSchema } from './user.model';
-import Role, { roleSchema,  } from './role.model';
+import User, { userSchema } from './user.model';
+import Coach, { coachSchema } from './coach.model';
 
 
 
 
 export default function setupModels(sequelize: Sequelize){
   User.init(userSchema, User.config(sequelize))
-  Role.init(roleSchema, Role.config(sequelize))
-
+  Coach.init(coachSchema, Coach.config(sequelize))
 
   //associates
-  Role.associate(User)
-  User.associate(Role)
+  User.associate(Coach)
+  Coach.associate(User)
 }
 

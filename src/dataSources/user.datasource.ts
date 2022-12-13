@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt'
 import  { UpdateUser } from '../core/entities/User';
 import UserRepository from '../core/repositories/userRepository';
 // import sequelize from '../libs/sequelize'
-import UserModel from '../db/models/user.model'
+import UserModel from '../db/models/coach.model'
 import { CreateUser } from '../core/entities/User';
 import Boom from '@hapi/boom';
 import IUser from '../core/entities/User';
