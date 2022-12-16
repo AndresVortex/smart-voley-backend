@@ -24,5 +24,6 @@ const sequelize = new Sequelize(URI, {
 // });
 setupModels(sequelize)
 
+console.log({sequelize})
 
 export default sequelize;

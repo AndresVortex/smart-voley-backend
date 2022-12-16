@@ -14,9 +14,11 @@ export const createUserSchema = Joi.object({
   name: name.required(),
   lastName: lastName.required(),
   dateBirth,
-  email: email.required(),
-  password: password.required(),
-  roleId: roleId.required(),
+  user: Joi.object({
+    email: email.required(),
+    password: password.required(),
+
+  })
 })
 
 export const updateUserSchema = Joi.object({

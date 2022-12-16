@@ -1,8 +1,8 @@
 import { Router } from 'express'
 import passport from 'passport'
-import getUsers from '../controllers/users/getUsers.controller'
-import registerUser from '../controllers/users/register.controller'
-import updateUser from '../controllers/users/update.controllers'
+import getUsers from '../controllers/coach/getUsers.controller'
+import registerUser from '../controllers/coach/register.controller'
+import updateUser from '../controllers/coach/update.controllers'
 import validatorSession from '../middlewares/validate.sesion'
 import validatorHandler from '../middlewares/validator.handler'
 import { changeStatusUserSchema, createUserSchema, getUserSchema, updateUserSchema } from '../schemas/user.schema'
@@ -14,7 +14,7 @@ const router = Router()
 
 //Ruta para registrar usuarios
 router.post('/register',
-  passport.authenticate('jwt', { session: false }),
+  // passport.authenticate('jwt', { session: false }),
   validatorHandler(createUserSchema, 'body'),
   registerUser
 )

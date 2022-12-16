@@ -1,16 +1,18 @@
 import bcrypt from 'bcrypt'
-import  { UpdateUser } from '../core/entities/User';
-import UserRepository from '../core/repositories/userRepository';
-// import sequelize from '../libs/sequelize'
-import UserModel from '../db/models/coach.model'
-import { CreateUser } from '../core/entities/User';
-import Boom from '@hapi/boom';
-import IUser from '../core/entities/User';
 
+import UserRepository from '../core/repositories/userRepository';
+import sequelize from '../libs/sequelize'
+import UserModel from '../db/models/user.model'
+import User from '../db/models/user.model'
+
+
+import Boom from '@hapi/boom';
+
+const { models } = sequelize
 
 export default class UserDataSource implements UserRepository {
 
-  public async create(user: CreateUser): Promise<IUser> {
+  public async create(user: User): Promise<User> {
 
 
     const hash = await bcrypt.hash(user.password, 10)
@@ -18,11 +20,12 @@ export default class UserDataSource implements UserRepository {
       ...user,
       password: hash
     }
+    // const newUser = await sequelize.models.User.create(userHash)
     const newUser = await UserModel.create(userHash)
     return newUser
 
   }
-  async getByEmail(email: string): Promise<IUser> {
+  async getByEmail(email: string): Promise<User> {
     const user = await UserModel.findOne({
       where: {
         email
@@ -33,7 +36,7 @@ export default class UserDataSource implements UserRepository {
     }
     return user
   }
-  async getById(id: number): Promise<IUser> {
+  async getById(id: number): Promise<User> {
 
     const user = await UserModel.findByPk(id)
 
@@ -43,7 +46,7 @@ export default class UserDataSource implements UserRepository {
     return user
   }
 
-  async update(id: number, changes: UpdateUser): Promise<IUser> {
+  async update(id: number, changes: User): Promise<User> {
     await this.getById(id)
 
     const userUpdate = await UserModel.update(changes, {
@@ -55,7 +58,7 @@ export default class UserDataSource implements UserRepository {
 
     return userUpdate[1][0]
   }
-  async find(): Promise<IUser[]> {
+  async find(): Promise<User[]> {
     const user = await UserModel.findAll({
       include: ['role']
     })
