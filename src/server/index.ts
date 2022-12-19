@@ -23,7 +23,7 @@ class Server {
 
   async db(){
     try {
-      await sequelize.sync({force: true})
+      await sequelize.sync({force: false})
 
       console.log('Db conectada')
 

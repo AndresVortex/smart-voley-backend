@@ -1,22 +1,28 @@
 import {Model, Sequelize, DataTypes, ModelStatic, InferAttributes, InferCreationAttributes, CreationOptional, Association, ForeignKey, NonAttribute, HasOneGetAssociationMixin, BelongsToGetAssociationMixin} from 'sequelize'
-import ICoach from '../../core/entities/Coach'
+// import ICoach from '../../core/entities/Athletes'
 
 import User from './user.model';
+import IAthletes from '../../core/entities/Athletes';
+import Category from './category.model';
+import Club from './club.model';
 
-export const COACH_TABLET = 'coach'
+export const ATHLETES_TABLET = 'athletes'
 
 
 
 
 
-export class Coach extends Model<InferAttributes<Coach, {omit: 'user'} >, InferCreationAttributes<Coach, {omit: 'user'}>> {
+export class Athletes extends Model<InferAttributes<Athletes, {omit: 'user'} >, InferCreationAttributes<Athletes, {omit: 'user'}>> {
 
-  declare id: CreationOptional<ICoach['id']>
-  declare name: ICoach['name']
-  declare lastName: CreationOptional<ICoach['lastName']>
-  declare dateBirth: CreationOptional<ICoach['dateBirth']>
-
-  declare userId: ForeignKey<User['id']>
+  declare id: CreationOptional<IAthletes['id']>
+  declare name: IAthletes['name']
+  declare lastName: CreationOptional<IAthletes['lastName']>
+  declare dateBirth: CreationOptional<IAthletes['dateBirth']>
+  declare height: IAthletes['height']
+  declare weight: IAthletes['weight']
+  declare categoryId: ForeignKey<IAthletes['categoryId']>
+  declare clubId: ForeignKey<IAthletes['clubId']>
+  declare userId: ForeignKey<IAthletes['userId']>
 
   declare user?: NonAttribute<User>
 
@@ -27,19 +33,25 @@ export class Coach extends Model<InferAttributes<Coach, {omit: 'user'} >, InferC
 
   declare getUser: BelongsToGetAssociationMixin<User>;
   declare static associations: {
-    user: Association<Coach, User>
+    user: Association<Athletes, User>
+    category: Association<Athletes, Category>
+    club: Association<Athletes>
   }
 
   //methods
-  static associate( user: ModelStatic<User>) {
+  static associate( user: ModelStatic<User>, category: ModelStatic<Category>, club: ModelStatic<Club>) {
     //models associate
     this.belongsTo(user, { as: 'user', foreignKey: 'user_id'  })
+    this.belongsTo(category, { as: 'category', foreignKey: 'category_id' })
+    this.belongsTo(club, { as: 'club', foreignKey: 'club_id' })
+
   }
+
   static config(sequelize: Sequelize) {
     return {
       sequelize,
-      tableName: COACH_TABLET,
-      modelName: 'Coach',
+      tableName: ATHLETES_TABLET,
+      modelName: 'Athletes',
       timestamps: true
     }
   }
@@ -47,7 +59,7 @@ export class Coach extends Model<InferAttributes<Coach, {omit: 'user'} >, InferC
 
 }
 
-export const coachSchema = {
+export const athletesSchema = {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -68,8 +80,16 @@ export const coachSchema = {
     allowNull: true,
     field: 'date_birth'
   },
+  height: {
+    type: DataTypes.INTEGER,
+    allowNull:true,
 
-  // roleId: {
+  },
+  weight: {
+    type: DataTypes.INTEGER,
+    allowNull:true,
+  },
+  // userId: {
   //   field: 'role_id',
   //   type: DataTypes.INTEGER,
   //   allowNull: false,
@@ -93,4 +113,4 @@ export const coachSchema = {
 }
 
 
-export default Coach
+export default Athletes
