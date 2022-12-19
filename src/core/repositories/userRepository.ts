@@ -5,6 +5,6 @@ export default interface UserRepository {
   find(): Promise<User[]>;
   getByEmail(email: User['email']): Promise<User>;
   getById(id: User['id']): Promise<User>;
-  update(id: User['id'], changes: User ): Promise<User>;
+  update(id: User['id'], changes: Partial<User> ): Promise<User>;
 
 }

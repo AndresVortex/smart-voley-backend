@@ -1,4 +1,4 @@
-import { Sequelize } from "sequelize";
+import { Sequelize } from "sequelize-typescript";
 
 import { config } from '../config'
 import setupModels  from '../db/models'
@@ -15,6 +15,11 @@ const URI = `postgres://${USER}:${PASSWORD}@${config.dbHost}:${config.dbPort}/${
 const sequelize = new Sequelize(URI, {
   dialect: 'postgres',
   logging: false,
+  // models: ['..\db\models\*.model.ts'],
+  // modelMatch: (filename, member) => {
+  //   console.log(filename, member)
+  //   return filename.substring(0, filename.indexOf('.model')) === member.toLowerCase();
+  // },
 });
 // const sequelize = new Sequelize(dbName, dbUser, 'vortex22', {
 //   host: dbHost,
@@ -23,7 +28,7 @@ const sequelize = new Sequelize(URI, {
 //   logging: false,
 // });
 setupModels(sequelize)
-
-console.log({sequelize})
+console.log(sequelize.models)
+// console.log({sequelize})
 
 export default sequelize;

@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon ./dist/index.js",
     "start": "node dist/app.js",
-    "build:dev": "npx tsc --w"
+    "build": "npx tsc --w"
   },
   "author": "",
   "license": "ISC",
@@ -37,6 +37,8 @@
     "passport-local": "^1.0.0",
     "pg": "^8.7.3",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.21.3"
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.21.3",
+    "sequelize-typescript": "^2.1.5"
   }
 }

@@ -46,17 +46,12 @@ export default class UserDataSource implements UserRepository {
     return user
   }
 
-  async update(id: number, changes: User): Promise<User> {
-    await this.getById(id)
+  async update(id: number, changes: Partial<User>): Promise<User> {
+    const user =await this.getById(id)
 
-    const userUpdate = await UserModel.update(changes, {
-      where: {
-        id
-      },
-      returning: true
-    })
+    const userUpdate = await user.update(changes)
 
-    return userUpdate[1][0]
+    return userUpdate
   }
   async find(): Promise<User[]> {
     const user = await UserModel.findAll({

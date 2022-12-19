@@ -14,7 +14,7 @@ const loginUser = async(req: Request, res: Response, next: NextFunction) => {
     }
     const payload = {
       sub: data.id,
-      role: data.roleId
+
     }
 
     const token = auth.generateToken(payload)

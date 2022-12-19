@@ -29,7 +29,7 @@ class SaveCoach {
     //Notificar por correo al usuario creado
     if (coachDb.user) {
 
-      this.notifierRepository.notifyUser(coachDb.user)
+      this.notifierRepository.notifyUser(coachDb.user, coach)
     }
 
     //Return del usuario creado

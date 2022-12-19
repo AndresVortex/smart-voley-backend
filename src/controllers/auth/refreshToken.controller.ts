@@ -6,7 +6,7 @@ import {auth} from '../../core/interactors'
 const refreshToken = (req: Request, res: Response, next: NextFunction) => {
   try {
     const payload: any = req.user
-    const token = auth.generateToken({sub: payload?.sub, role: payload?.role })
+    const token = auth.generateToken({sub: payload?.sub })
     return respuesta(res, true, 200, 'token actualizado', token )
   } catch (error) {
     next(error)
