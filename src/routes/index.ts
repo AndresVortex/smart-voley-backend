@@ -2,6 +2,8 @@ import {Express, Router} from 'express'
 import coachRouter from './coach.routes'
 import loginRouter from './auth.routes'
 import rolRouter from './rol.routes'
+import clubRouter from './club.routes'
+
 
 import validatorSession from '../middlewares/validate.sesion';
 import passport from 'passport';
@@ -13,5 +15,6 @@ export default function routesApi(app: Express) {
   router.use('/role',passport.authenticate('jwt', {session: false} ), validatorSession(userRepository), rolRouter)
   router.use('/', loginRouter )
   router.use('/coach', coachRouter )
+  router.use('/club', clubRouter )
 
 }
